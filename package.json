@@ -1,0 +1,22 @@
+{
+  "name": "@aklinker1/mcp-server-sdk",
+  "version": "0.1.0",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "bun run --watch dev.ts",
+    "dev:mcp": "bunx @modelcontextprotocol/inspector@latest --transport http --server-url http://localhost:3000"
+  },
+  "devDependencies": {
+    "@aklinker1/check": "^2.2.0",
+    "@types/bun": "latest",
+    "@typescript/native-preview": "^7.0.0-dev.20260114.1",
+    "oxlint": "^1.39.0",
+    "prettier": "^3.7.4",
+    "zod": "^4.3.5"
+  },
+  "dependencies": {
+    "@standard-schema/spec": "^1.1.0"
+  }
+}
