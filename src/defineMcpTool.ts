@@ -1,7 +1,9 @@
 import type { StandardSchemaV1 } from "@standard-schema/spec";
 
 /**
- * TODO: DOCUMENT
+ * Object passed into the handler callback.
+ *
+ * If {@link McpTool#inputSchema} is defined, the object will include a `input` property.
  */
 export type McpToolCtx<TInputSchema extends StandardSchemaV1 | undefined> =
   TInputSchema extends StandardSchemaV1
@@ -11,12 +13,12 @@ export type McpToolCtx<TInputSchema extends StandardSchemaV1 | undefined> =
     : {};
 
 /**
- * TODO: DOCUMENT
+ * @see https://modelcontextprotocol.io/specification/draft/server/tools#tool-result
  */
 export type McpToolResponse = any; // TODO: Add response types
 
 /**
- * TODO: DOCUMENT
+ * Object containing everything needed to provide a tool to MCP clients.
  */
 export type McpTool<TInputSchema extends StandardSchemaV1 | undefined> = {
   name?: string;
@@ -27,10 +29,9 @@ export type McpTool<TInputSchema extends StandardSchemaV1 | undefined> = {
 };
 
 /**
- * TODO: DOCUMENT
+ * "Identity" function that helps define {@link McpTool} objects.
  *
- * @param tool
- * @returns
+ * Returns the value passed in without modification.
  */
 export function defineMcpTool<
   TInputSchema extends StandardSchemaV1 | undefined = undefined,

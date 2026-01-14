@@ -8,11 +8,46 @@ import type { McpTool } from "./defineMcpTool";
 import type { McpResourceTemplate } from "./defineMcpResourceTemplate";
 
 export type CreateMcpFetchTransportOptions = {
+  /**
+   * When set, a 403 will be returned if the "Origin" header does not match the
+   * provided value.
+   */
   origin?: string;
+  /**
+   * Function from your validation library that converts a schema to it's JSON schema.
+   *
+   * @example
+   * ```ts
+   * import z from 'zod';
+   *
+   * const fetch = createMcpFetchTransport({
+   *   toJsonSchema: z.toJSONSchema,
+   *   // ...
+   * })
+   * ```
+   */
   toJsonSchema: (schema: StandardSchemaV1) => StandardJSONSchemaV1;
+  /**
+   * Map of prompts defined with `defineMcpPrompt`.
+   *
+   * When a prompt doesn't have a `name`, the key it is listed as is used as it's `name`.
+   */
   prompts?: Record<string, McpPrompt<any>>;
+  /**
+   * Map of resources defined with `defineMcpResource` or  `defineMcpResourceTemplate`.
+   *
+   * When a resource doesn't have a `name`, the key it is listed as is used as it's `name`.
+   */
   resources?: Record<string, McpResource | McpResourceTemplate<string, any>>;
+  /**
+   * Map of tools defined with `defineMcpTool`.
+   *
+   * When a tool doesn't have a `name`, the key it is listed as is used as it's `name`.
+   */
   tools?: Record<string, McpTool<any>>;
+  /**
+   * @see https://modelcontextprotocol.io/specification/draft/schema#initializeresult
+   */
   serverInfo?: {
     name?: string;
     /**
@@ -45,7 +80,7 @@ export type CreateMcpFetchTransportOptions = {
    */
   instructions?: string;
   /**
-   * https://modelcontextprotocol.io/specification/draft/schema#servercapabilities
+   * @see https://modelcontextprotocol.io/specification/draft/schema#servercapabilities
    */
   capabilities?: {
     experimental?: { [key: string]: object };

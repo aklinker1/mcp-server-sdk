@@ -1,17 +1,20 @@
 /**
- * TODO: DOCUMENT
+ * Object passed into the handler callback.
  */
 export type McpResourceCtx = {
+  /**
+   * The URI the client is accessing.
+   */
   uri: string;
 };
 
 /**
- * TODO: DOCUMENT
+ * @see https://modelcontextprotocol.io/specification/draft/server/resources#resource-contents
  */
 export type McpResourceResponse = any; // TODO: Add response types
 
 /**
- * TODO: DOCUMENT
+ * Object containing everything needed to provide a resource to MCP clients.
  */
 export type McpResource = {
   name?: string;
@@ -23,10 +26,9 @@ export type McpResource = {
 };
 
 /**
- * TODO: DOCUMENT
+ * "Identity" function that helps define {@link McpResource} objects.
  *
- * @param prompt
- * @returns
+ * Returns the value passed in without modification.
  */
 export function defineMcpResource(prompt: McpResource): McpResource {
   return prompt;

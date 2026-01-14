@@ -129,35 +129,3 @@ Use the `@modelcontextprotocol/inspector` package to inspec your server:
 ```sh
 bunx @modelcontextprotocol/inspector@latest --transport http --server-url http://localhost:3000
 ```
-
-## Docs
-
-### `createMcpFetchTransport`
-
-This builds a server-side fetch function (`(request: Request) => MaybePromise<Response>`) that can be hosted by any runtime that supports the WHATWG fetch standard.
-
-```ts
-const fetch = createMcpFetchTransport({
-  toJsonSchema: z.toJSONSchema,
-  prompts: {
-    // ...
-  },
-  resources: {
-    // ...
-  },
-  tools: {
-    // ...
-  },
-});
-```
-
-#### Parameters
-
-- **`toJsonSchema`** (_Required_) &ndash; Pass your validation library's `toJSONSchema` function.
-- **`prompts`** (_Optional_) &ndash; Pass in the [prompts](https://modelcontextprotocol.io/docs/learn/server-concepts#core-server-features) your server supports.
-- **`resources`** (_Optional_) &ndash; Pass in the [resources](https://modelcontextprotocol.io/docs/learn/server-concepts#core-server-features) your server supports.
-- **`tools`** (_Optional_) &ndash; Pass in the [tools](https://modelcontextprotocol.io/docs/learn/server-concepts#core-server-features) your server supports.
-
-### `definePrompt`
-
-Define a

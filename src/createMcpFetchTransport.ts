@@ -4,6 +4,28 @@ import { buildTransportState } from "./utils/transport-state";
 
 export type McpFetchFunction = (request: Request) => Promise<Response>;
 
+/**
+ * This builds a server-side fetch function
+ * (`(request: Request) => MaybePromise<Response>`) that can be hosted by any
+ * runtime that supports the WHATWG fetch standard.
+ *
+ * @example
+ * ```ts
+ * const fetch = createMcpFetchTransport({
+ *   toJsonSchema: z.toJSONSchema,
+ *   prompts: {
+ *     // ...
+ *   },
+ *   resources: {
+ *     // ...
+ *   },
+ *   tools: {
+ *     // ...
+ *   },
+ * });
+ * ```
+ *
+ */
 export function createMcpFetchTransport(
   options: CreateMcpFetchTransportOptions,
 ): McpFetchFunction {

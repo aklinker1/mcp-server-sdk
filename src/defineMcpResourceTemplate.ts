@@ -1,20 +1,26 @@
 import type { StandardSchemaV1 } from "@standard-schema/spec";
 
 /**
- * TODO: DOCUMENT
+ * Object passed into the handler callback.
  */
 export type McpResourceTemplateCtx<TUriSchema extends StandardSchemaV1> = {
+  /**
+   * The URI the client is accessing.
+   */
   uri: string;
+  /**
+   * Parsed URI containing any variables defined in the {@link McpResourceTemplate#uriSchema}.
+   */
   uriParams: StandardSchemaV1.InferOutput<TUriSchema>;
 };
 
 /**
- * TODO: DOCUMENT
+ * @see https://modelcontextprotocol.io/specification/draft/server/resources#resource-contents
  */
 export type McpResourceTemplateResponse = any; // TODO: Add response types
 
 /**
- * TODO: DOCUMENT
+ * Object containing everything needed to provide a resource to MCP clients.
  */
 export type McpResourceTemplate<
   TUriTemplate extends string,
@@ -32,10 +38,9 @@ export type McpResourceTemplate<
 };
 
 /**
- * TODO: DOCUMENT
+ * "Identity" function that helps define {@link McpResourceTemplate} objects.
  *
- * @param prompt
- * @returns
+ * Returns the value passed in without modification.
  */
 export function defineMcpResourceTemplate<
   TUriTemplate extends string,

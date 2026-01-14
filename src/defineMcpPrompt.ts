@@ -1,7 +1,9 @@
 import type { StandardSchemaV1 } from "@standard-schema/spec";
 
 /**
- * TODO: DOCUMENT
+ * Object passed into the handler callback.
+ *
+ * If {@link McpPrompt#argsSchema} is defined, the object will include a `args` property.
  */
 export type McpPromptCtx<TArgsSchema extends StandardSchemaV1 | undefined> =
   TArgsSchema extends StandardSchemaV1
@@ -11,12 +13,12 @@ export type McpPromptCtx<TArgsSchema extends StandardSchemaV1 | undefined> =
     : {};
 
 /**
- * TODO: DOCUMENT
+ * @see https://modelcontextprotocol.io/specification/draft/server/prompts#promptmessage
  */
 export type McpPromptResponse = any; // TODO: Add response types
 
 /**
- * TODO: DOCUMENT
+ * Object containing everything needed to provide a prompt to MCP clients.
  */
 export type McpPrompt<TArgsSchema extends StandardSchemaV1 | undefined> = {
   name?: string;
@@ -27,10 +29,9 @@ export type McpPrompt<TArgsSchema extends StandardSchemaV1 | undefined> = {
 };
 
 /**
- * TODO: DOCUMENT
+ * "Identity" function that helps define {@link McpPrompt} objects.
  *
- * @param prompt
- * @returns
+ * Returns the value passed in without modification.
  */
 export function defineMcpPrompt<
   TArgsSchema extends StandardSchemaV1 | undefined = undefined,
