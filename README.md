@@ -10,7 +10,7 @@ Alternative to the official [`@modelcontextprotocol/sdk`](https://github.com/mod
 
 - [Standard Schema compatible validation library](https://standardschema.dev/schema#what-schema-libraries-implement-the-spec) support
 - [WHATWG `fetch` standard](https://fetch.spec.whatwg.org/) support (Bun & Deno servers)
-- Zero runtime dependencies (just one type dependency)
+- Minimal dependencies
 
 **Supported Protocol Versions**
 

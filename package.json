@@ -1,9 +1,9 @@
 {
   "name": "@aklinker1/mcp-server-sdk",
+  "description": "Server-side APIs for creating MCP server-side fetch functions",
   "version": "0.1.0",
   "module": "index.ts",
   "type": "module",
-  "private": true,
   "scripts": {
     "dev": "bun run --watch dev.ts",
     "dev:mcp": "bunx @modelcontextprotocol/inspector@latest --transport http --server-url http://localhost:3000"
@@ -19,7 +19,6 @@
   },
   "dependencies": {
     "@standard-schema/spec": "^1.1.0",
-    "uri-template-lite": "^23.4.0",
-    "url-template": "^3.1.1"
+    "uri-template-lite": "^23.4.0"
   }
 }
