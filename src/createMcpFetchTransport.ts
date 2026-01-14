@@ -1,11 +1,14 @@
 import type { CreateMcpFetchTransportOptions } from "./types";
 import { handleJsonRpc, isJsonRpcRequest } from "./utils/json-rpc-handler";
+import { buildTransportState } from "./utils/transport-state";
 
 export type McpFetchFunction = (request: Request) => Promise<Response>;
 
 export function createMcpFetchTransport(
   options: CreateMcpFetchTransportOptions,
 ): McpFetchFunction {
+  const state = buildTransportState(options);
+
   const _sessions: { [sessionId: string]: WritableStreamDefaultController } =
     Object.create(null);
 
@@ -62,7 +65,7 @@ export function createMcpFetchTransport(
         // TODO: Support individual requests
       }
       if (accept?.includes("application/json")) {
-        const result = await handleJsonRpc(options, body);
+        const result = await handleJsonRpc(options, state, body);
         if (result == null) return new Response(undefined, { headers });
         else return Response.json(result, { headers });
       }

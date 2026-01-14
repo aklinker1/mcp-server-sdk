@@ -8,8 +8,12 @@ import {
 } from "./json-rpc-types";
 import type { McpResource } from "../defineMcpResource";
 import type { McpResourceTemplate } from "../defineMcpResourceTemplate";
-import type { McpTool } from "../defineMcpTool";
-import type { McpPrompt } from "../defineMcpPrompt";
+import { isMcpResource, isMcpResourceTemplate } from "./resource-types";
+import type {
+  ResolvedMcpResource,
+  ResolvedMcpResourceTemplate,
+  TransportState,
+} from "./transport-state";
 
 const TOOL_PAGE_SIZE = 50;
 const PROMPT_PAGE_SIZE = 20;
@@ -23,6 +27,7 @@ const SUPPORTED_PROTOCOL_VERSIONS = [
 
 export async function handleJsonRpc(
   options: CreateMcpFetchTransportOptions,
+  state: TransportState,
   request: JsonRpcRequest,
 ): Promise<JsonRpcResponse | null> {
   try {
@@ -63,8 +68,8 @@ export async function handleJsonRpc(
       // PROMPTS
       case "prompts/list": {
         const { nextCursor, page } = paginate(
-          mapPrompts(options),
-          RESOURCE_PAGE_SIZE,
+          mapPrompts(options, state),
+          PROMPT_PAGE_SIZE,
           request.params?.cursor,
         );
         return {
@@ -78,7 +83,8 @@ export async function handleJsonRpc(
       }
       case "prompts/get": {
         const promptName = request.params?.name as string;
-        const prompt = getPrompt(options, promptName);
+        const prompt = state.prompts[promptName];
+        if (!prompt) throw Error("Prompt not found");
 
         const args = await validateSchema(
           prompt.argsSchema,
@@ -95,7 +101,7 @@ export async function handleJsonRpc(
       // RESOURCES
       case "resources/list": {
         const { nextCursor, page } = paginate(
-          mapResources(options),
+          mapResources(state),
           RESOURCE_PAGE_SIZE,
           request.params?.cursor,
         );
@@ -110,18 +116,18 @@ export async function handleJsonRpc(
       }
       case "resources/read": {
         const uri = request.params!.uri as string;
-        const resource = getResource(options, uri);
+        const { resource, uriParams } = getResource(state, uri);
         return {
           jsonrpc: "2.0",
           id: request.id,
-          result: await resource.handler({ uri }),
+          result: await resource.handler({ uri, uriParams }),
         };
       }
 
       // RESOURCE TEMPLATES
       case "resources/templates/list": {
         const { nextCursor, page } = paginate(
-          mapResourceTemplates(options),
+          mapResourceTemplates(state),
           RESOURCE_PAGE_SIZE,
           request.params?.cursor,
         );
@@ -138,7 +144,7 @@ export async function handleJsonRpc(
       // TOOLS
       case "tools/list": {
         const { nextCursor, page } = paginate(
-          mapTools(options),
+          mapTools(options, state),
           TOOL_PAGE_SIZE,
           request.params?.cursor,
         );
@@ -152,10 +158,10 @@ export async function handleJsonRpc(
         };
       }
       case "tools/call": {
-        const toolName = request.params?.name as string | undefined;
-        if (!toolName) throw Error();
+        const toolName = request.params?.name as string;
+        const tool = state.tools[toolName];
+        if (!tool) throw Error("Tool not found");
 
-        const tool = getTool(options, toolName);
         const input = await validateSchema(
           tool.inputSchema,
           request.params?.arguments,
@@ -227,112 +233,83 @@ function paginate<T>(items: T[], pageSize: number, cursor?: string | unknown) {
   };
 }
 
-function mapPrompts(options: CreateMcpFetchTransportOptions): any {
-  return Object.entries(options.prompts ?? {}).map(([key, tool]) => ({
-    name: tool.name ?? key,
+function mapPrompts(
+  options: CreateMcpFetchTransportOptions,
+  state: TransportState,
+): any {
+  return Object.values(state.prompts).map((tool) => ({
+    name: tool.name,
     title: tool.title,
     description: tool.description,
     argsSchema: toJsonSchema(options, tool.argsSchema),
   }));
 }
 
-function mapTools(options: CreateMcpFetchTransportOptions): any {
-  return Object.entries(options.tools ?? {}).map(([key, tool]) => ({
-    name: tool.name ?? key,
+function mapTools(
+  options: CreateMcpFetchTransportOptions,
+  state: TransportState,
+): any {
+  return Object.values(state.tools).map((tool) => ({
+    name: tool.name,
     title: tool.title,
     description: tool.description,
     inputSchema: toJsonSchema(options, tool.inputSchema),
   }));
 }
 
-function isMcpResource(input: any): input is McpResource {
-  return !!input?.uri;
-}
-
-function getResources(
-  options: CreateMcpFetchTransportOptions,
-): [key: string, resource: McpResource][] {
-  let res: any[] = [];
-
-  for (const [key, resource] of Object.entries(options.resources ?? {})) {
-    if (!isMcpResource(resource)) continue;
-    res.push([key, resource]);
-  }
-
-  return res;
-}
-
-function isMcpResourceTemplate(
-  input: any,
-): input is McpResourceTemplate<string, any> {
-  return !!input?.uriTemplate;
+function getResources(state: TransportState): ResolvedMcpResource[] {
+  return state.resources.filter(({ resource }) =>
+    isMcpResource(resource),
+  ) as ResolvedMcpResource[];
 }
 
 function getResourceTemplates(
-  options: CreateMcpFetchTransportOptions,
-): [key: string, resource: McpResourceTemplate<string, any>][] {
-  let res: any[] = [];
-
-  for (const [key, resource] of Object.entries(options.resources ?? {})) {
-    if (!isMcpResourceTemplate(resource)) continue;
-    res.push([key, resource]);
-  }
-
-  return res;
+  state: TransportState,
+): ResolvedMcpResourceTemplate[] {
+  return state.resources.filter(({ resource }) =>
+    isMcpResourceTemplate(resource),
+  ) as ResolvedMcpResourceTemplate[];
 }
 
-function mapResourceTemplates(options: CreateMcpFetchTransportOptions): any {
-  return getResourceTemplates(options).map(([key, resource]) => ({
+function mapResourceTemplates(state: TransportState): any {
+  return getResourceTemplates(state).map(({ resource }) => ({
     uriTemplate: resource.uriTemplate,
-    name: resource.name ?? key,
+    name: resource.name,
     title: resource.title,
     description: resource.description,
     mimeType: resource.mimeType,
   }));
 }
 
-function mapResources(options: CreateMcpFetchTransportOptions): any {
-  return getResources(options).map(([key, resource]) => ({
+function mapResources(state: TransportState): any {
+  return getResources(state).map(({ resource }) => ({
     uri: resource.uri,
-    name: resource.name ?? key,
+    name: resource.name,
     title: resource.title,
     description: resource.description,
     mimeType: resource.mimeType,
   }));
-}
-
-function getTool(
-  options: CreateMcpFetchTransportOptions,
-  name: string,
-): McpTool<StandardSchemaV1> {
-  for (const [key, tool] of Object.entries(options.tools ?? {})) {
-    if (tool.name === name || key === name) return tool;
-  }
-
-  throw Error("Tool not found");
 }
 
 function getResource(
-  options: CreateMcpFetchTransportOptions,
+  state: TransportState,
   uri: string,
-): McpResource {
-  const resource = getResources(options).find(
-    ([_, resource]) => resource.uri === uri,
-  )?.[1];
-  if (!resource) throw Error("TODO: Lookup resource templates URIs");
-
-  return resource;
-}
-
-function getPrompt(
-  options: CreateMcpFetchTransportOptions,
-  name: string,
-): McpPrompt<StandardSchemaV1> {
-  for (const [key, prompt] of Object.entries(options.prompts ?? {})) {
-    if (prompt.name === name || key === name) return prompt;
+):
+  | { resource: McpResource; uriParams: undefined }
+  | {
+      resource: McpResourceTemplate<string, StandardSchemaV1>;
+      uriParams: any;
+    } {
+  for (const entry of state.resources) {
+    if ("uri" in entry) {
+      if (uri === entry.uri)
+        return { resource: entry.resource, uriParams: undefined };
+    } else {
+      const uriParams = entry.uriTemplate.match(uri);
+      if (uriParams) return { resource: entry.resource, uriParams };
+    }
   }
-
-  throw Error("Prompt not found");
+  throw Error("URI not found");
 }
 
 async function validateSchema<T>(
