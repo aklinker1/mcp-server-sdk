@@ -1,7 +1,7 @@
 {
   "name": "@aklinker1/mcp-server-sdk",
   "description": "Server-side APIs for creating MCP server-side fetch functions",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "module": "index.ts",
   "type": "module",
   "scripts": {
