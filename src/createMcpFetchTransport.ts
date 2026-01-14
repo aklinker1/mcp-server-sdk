@@ -9,7 +9,7 @@ export function createMcpFetchTransport(
 ): McpFetchFunction {
   const state = buildTransportState(options);
 
-  const _sessions: { [sessionId: string]: WritableStreamDefaultController } =
+  const sessions: { [sessionId: string]: ReadableStreamDefaultController } =
     Object.create(null);
 
   return async (request) => {
@@ -32,14 +32,16 @@ export function createMcpFetchTransport(
       );
     }
 
+    // Validate origin header - https://modelcontextprotocol.io/specification/draft/basic/transports#security-warning
+    if (options.origin) {
+      const originHeader = request.headers.get("origin");
+      if (originHeader !== options.origin)
+        return new Response(undefined, { status: 403, headers });
+    }
+
     // Short-circuit preflight requests
     if (options.cors && request.method === "OPTIONS") {
       return new Response(undefined, { headers });
-    }
-
-    // Start a steaming session
-    if (request.method === "GET") {
-      return new Response("TODO - not implemented", { status: 501, headers });
     }
 
     if (request.method === "POST") {
@@ -60,10 +62,12 @@ export function createMcpFetchTransport(
       }
 
       const accept = request.headers.get("accept");
+
       // Prefer event streams over one-off requests
       if (accept?.includes("text/event-stream")) {
-        // TODO: Support individual requests
+        // TODO: Support SSE streams
       }
+
       if (accept?.includes("application/json")) {
         const result = await handleJsonRpc(options, state, body);
         if (result == null) return new Response(undefined, { headers });

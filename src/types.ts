@@ -8,6 +8,7 @@ import type { McpTool } from "./defineMcpTool";
 import type { McpResourceTemplate } from "./defineMcpResourceTemplate";
 
 export type CreateMcpFetchTransportOptions = {
+  origin?: string;
   toJsonSchema: (schema: StandardSchemaV1) => StandardJSONSchemaV1;
   prompts?: Record<string, McpPrompt<any>>;
   resources?: Record<string, McpResource | McpResourceTemplate<string, any>>;
