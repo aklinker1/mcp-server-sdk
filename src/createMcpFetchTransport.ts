@@ -31,7 +31,7 @@ export function createMcpFetchTransport(
 ): McpFetchFunction {
   const state = buildTransportState(options);
 
-  const sessions: { [sessionId: string]: ReadableStreamDefaultController } =
+  const _sessions: { [sessionId: string]: ReadableStreamDefaultController } =
     Object.create(null);
 
   return async (request) => {
