@@ -186,6 +186,7 @@ export type McpResourceContent = {
 export type McpResultContent =
   | McpTextContent
   | McpImageContent
+  | McpAudioContent
   | McpResourceContent;
 
 export type McpPromptMessage = {
