@@ -12,7 +12,7 @@ Alternative to the official [`@modelcontextprotocol/sdk@v1`](https://github.com/
 
 - [Standard Schema compatible validation library](https://standardschema.dev/schema#what-schema-libraries-implement-the-spec) support
 - [WHATWG `fetch` standard](https://fetch.spec.whatwg.org/) support (Bun & Deno servers)
-- [Minimal dependencies](https://pkg-size.dev/@aklinker1%2Fmcp-server-sdk)
+- [Minimal dependencies](https://pkg-size.dev/@aklinker1%2Fmcp-server-sdk) (3 packages summing to 62KB vs 90 summing to 14MB)
 - Result type builders
 
 > [!WARNING]
