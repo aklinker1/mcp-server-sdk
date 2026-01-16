@@ -1,4 +1,5 @@
 import type { StandardSchemaV1 } from "@standard-schema/spec";
+import type { McpResourceResult } from "./types";
 
 /**
  * Object passed into the handler callback.
@@ -15,11 +16,6 @@ export type McpResourceTemplateCtx<TUriSchema extends StandardSchemaV1> = {
 };
 
 /**
- * @see https://modelcontextprotocol.io/specification/draft/server/resources#resource-contents
- */
-export type McpResourceTemplateResponse = any; // TODO: Add response types
-
-/**
  * Object containing everything needed to provide a resource to MCP clients.
  */
 export type McpResourceTemplate<
@@ -32,9 +28,7 @@ export type McpResourceTemplate<
   uriTemplate: TUriTemplate;
   uriSchema: TUriSchema;
   mimeType?: string;
-  handler: (
-    ctx: McpResourceTemplateCtx<TUriSchema>,
-  ) => McpResourceTemplateResponse;
+  handler: (ctx: McpResourceTemplateCtx<TUriSchema>) => McpResourceResult;
 };
 
 /**

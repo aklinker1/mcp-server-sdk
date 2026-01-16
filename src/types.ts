@@ -122,3 +122,96 @@ export type CreateMcpFetchTransportOptions = {
         headers: string[];
       };
 };
+
+/**
+ * @see https://modelcontextprotocol.io/specification/2025-03-26/server/tools#text-content
+ */
+export type McpTextContent = {
+  type: "text";
+  text: string;
+};
+
+/**
+ * @see https://modelcontextprotocol.io/specification/2025-03-26/server/tools#image-content
+ */
+export type McpImageContent = {
+  type: "image";
+  data: string;
+  mimeType: string;
+};
+
+/**
+ * @see https://modelcontextprotocol.io/specification/2025-03-26/server/tools#audio-content
+ */
+export type McpAudioContent = {
+  type: "audio";
+  data: string;
+  mimeType: string;
+};
+
+/**
+ * @see https://modelcontextprotocol.io/specification/2025-03-26/server/resources#text-content
+ */
+export type McpTextResourceData = {
+  uri: string;
+  mimeType: string;
+  text: string;
+};
+
+/**
+ * @see https://modelcontextprotocol.io/specification/2025-03-26/server/resources#binary-content
+ */
+export type McpBinaryResourceData = {
+  uri: string;
+  mimeType: string;
+  blob: string;
+};
+
+/**
+ * @see https://modelcontextprotocol.io/specification/2025-03-26/server/resources#resource-contents
+ */
+export type McpResourceData = McpTextResourceData | McpBinaryResourceData;
+
+/**
+ * @see https://modelcontextprotocol.io/specification/2025-03-26/server/tools#embedded-resources
+ */
+export type McpResourceContent = {
+  type: "resource";
+  resource: McpResourceData;
+};
+
+/**
+ * @see https://modelcontextprotocol.io/specification/2025-03-26/server/tools#tool-result
+ */
+export type McpResultContent =
+  | McpTextContent
+  | McpImageContent
+  | McpResourceContent;
+
+export type McpPromptMessage = {
+  role: "user" | "assistant";
+  content: McpResultContent[];
+};
+
+/**
+ * @see https://modelcontextprotocol.io/specification/2025-03-26/server/tools#calling-tools
+ */
+export type McpToolResult = {
+  content: McpResultContent[];
+  isError: boolean;
+};
+
+/**
+ * @see https://modelcontextprotocol.io/specification/2025-03-26/server/resources#reading-resources
+ */
+export type McpResourceResult = {
+  content: McpResourceData[];
+};
+
+/**
+ * @see https://modelcontextprotocol.io/specification/2025-03-26/server/prompts#getting-a-prompt
+ */
+export type McpPromptResult = {
+  description: string;
+  messages: McpPromptMessage[];
+};

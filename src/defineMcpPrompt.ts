@@ -1,4 +1,5 @@
 import type { StandardSchemaV1 } from "@standard-schema/spec";
+import type { McpPromptResult } from "./types";
 
 /**
  * Object passed into the handler callback.
@@ -13,11 +14,6 @@ export type McpPromptCtx<TArgsSchema extends StandardSchemaV1 | undefined> =
     : {};
 
 /**
- * @see https://modelcontextprotocol.io/specification/draft/server/prompts#promptmessage
- */
-export type McpPromptResponse = any; // TODO: Add response types
-
-/**
  * Object containing everything needed to provide a prompt to MCP clients.
  */
 export type McpPrompt<TArgsSchema extends StandardSchemaV1 | undefined> = {
@@ -25,7 +21,7 @@ export type McpPrompt<TArgsSchema extends StandardSchemaV1 | undefined> = {
   title?: string;
   description?: string;
   argsSchema?: TArgsSchema;
-  handler: (ctx: McpPromptCtx<TArgsSchema>) => McpPromptResponse;
+  handler: (ctx: McpPromptCtx<TArgsSchema>) => McpPromptResult;
 };
 
 /**

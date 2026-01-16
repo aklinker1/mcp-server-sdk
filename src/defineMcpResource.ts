@@ -1,3 +1,5 @@
+import type { McpResourceResult } from "./types";
+
 /**
  * Object passed into the handler callback.
  */
@@ -9,11 +11,6 @@ export type McpResourceCtx = {
 };
 
 /**
- * @see https://modelcontextprotocol.io/specification/draft/server/resources#resource-contents
- */
-export type McpResourceResponse = any; // TODO: Add response types
-
-/**
  * Object containing everything needed to provide a resource to MCP clients.
  */
 export type McpResource = {
@@ -22,7 +19,7 @@ export type McpResource = {
   description?: string;
   uri: string;
   mimeType?: string;
-  handler: (ctx: McpResourceCtx) => McpResourceResponse;
+  handler: (ctx: McpResourceCtx) => McpResourceResult;
 };
 
 /**
