@@ -6,12 +6,16 @@
 
 </div>
 
-Alternative to the official [`@modelcontextprotocol/sdk`](https://github.com/modelcontextprotocol/typescript-sdk/tree/v1.x) with:
+Alternative to the official [`@modelcontextprotocol/sdk@v1`](https://github.com/modelcontextprotocol/typescript-sdk/tree/v1.x) with:
 
 - [Standard Schema compatible validation library](https://standardschema.dev/schema#what-schema-libraries-implement-the-spec) support
 - [WHATWG `fetch` standard](https://fetch.spec.whatwg.org/) support (Bun & Deno servers)
 - [Minimal dependencies](https://pkg-size.dev/@aklinker1%2Fmcp-server-sdk)
 - Result type builders
+
+> [!WARNING]
+>
+> [V2](https://github.com/modelcontextprotocol/typescript-sdk/milestone/6) of the official SDK will likely add support for all my changes. Waiting for that version to be released.
 
 **Supported Protocol Versions**
 
