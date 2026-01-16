@@ -158,20 +158,38 @@ export async function handleJsonRpc(
         };
       }
       case "tools/call": {
-        const toolName = request.params?.name as string;
-        const tool = state.tools[toolName];
-        if (!tool) throw Error("Tool not found");
+        try {
+          const toolName = request.params?.name as string;
+          const tool = state.tools[toolName];
+          if (!tool) throw Error("Tool not found");
 
-        const input = await validateSchema(
-          tool.inputSchema,
-          request.params?.arguments,
-        );
+          const input = await validateSchema(
+            tool.inputSchema,
+            request.params?.arguments,
+          );
 
-        return {
-          jsonrpc: "2.0",
-          id: request.id,
-          result: await tool.handler({ input }),
-        };
+          return {
+            jsonrpc: "2.0",
+            id: request.id,
+            result: await tool.handler({ input }),
+          };
+        } catch (error) {
+          return {
+            jsonrpc: "2.0",
+            id: request.id,
+            result: {
+              isError: true,
+              content: [
+                {
+                  type: "text",
+                  text:
+                    "Tool call failed with error:\n\n" +
+                    JSON.stringify(serializeError(error), null, 2),
+                },
+              ],
+            },
+          };
+        }
       }
 
       // METHOD NOT FOUND
