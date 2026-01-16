@@ -63,7 +63,7 @@ import {
   createMcpFetchTransport,
   definePrompt,
   defineTool,
-  defineResource,
+  defineResourceTemplate,
 } from "@aklinker1/mcp-server-sdk";
 import z from "zod";
 
@@ -78,12 +78,11 @@ const examplePrompt = definePrompt({
   },
 });
 
-const exampleResource = defineResource({
+const exampleResource = defineResourceTemplate({
   uriTemplate: "example://{id}",
   uriSchema: z.object({
     id: z.string(),
   }),
-  mimeType: "text/plain",
   handler: async ({ uri }) => {
     // ...
   },
