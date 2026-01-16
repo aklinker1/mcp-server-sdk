@@ -11,6 +11,7 @@ Alternative to the official [`@modelcontextprotocol/sdk`](https://github.com/mod
 - [Standard Schema compatible validation library](https://standardschema.dev/schema#what-schema-libraries-implement-the-spec) support
 - [WHATWG `fetch` standard](https://fetch.spec.whatwg.org/) support (Bun & Deno servers)
 - [Minimal dependencies](https://pkg-size.dev/@aklinker1%2Fmcp-server-sdk)
+- Result type builders
 
 **Supported Protocol Versions**
 
