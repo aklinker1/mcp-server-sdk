@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v0.1.4
+
+[compare changes](https://github.com/aklinker1/mcp-server-sdk/compare/v0.1.3...v0.1.4)
+
+### 📖 Documentation
+
+- Add links for install size to README ([6b20864](https://github.com/aklinker1/mcp-server-sdk/commit/6b20864))
+- Add Result type builders section to README ([1084514](https://github.com/aklinker1/mcp-server-sdk/commit/1084514))
+
+### 🏡 Chore
+
+- Move builders file ([f0ba673](https://github.com/aklinker1/mcp-server-sdk/commit/f0ba673))
+- Fix type errors ([ae14ac8](https://github.com/aklinker1/mcp-server-sdk/commit/ae14ac8))
+
+### ❤️ Contributors
+
+- Aaron ([@aklinker1](https://github.com/aklinker1))
+
 ## v0.1.3
 
 [compare changes](https://github.com/aklinker1/mcp-server-sdk/compare/v0.1.2...v0.1.3)
