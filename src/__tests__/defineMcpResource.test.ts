@@ -1,6 +1,6 @@
 import { describe, it, expectTypeOf } from "bun:test";
 import { defineMcpResource } from "../defineMcpResource";
-import { buildMcpResourceResult } from "../result-builder";
+import { buildMcpResourceResult } from "../result-builders";
 import type { McpResourceResult } from "../types";
 
 const emptyResult = buildMcpResourceResult();

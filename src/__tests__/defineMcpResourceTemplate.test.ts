@@ -2,7 +2,7 @@ import { describe, it, expectTypeOf } from "bun:test";
 import z from "zod";
 import { defineMcpResourceTemplate } from "../defineMcpResourceTemplate";
 import type { McpResourceResult } from "../types";
-import { buildMcpResourceResult } from "../result-builder";
+import { buildMcpResourceResult } from "../result-builders";
 
 const emptyResult = buildMcpResourceResult();
 

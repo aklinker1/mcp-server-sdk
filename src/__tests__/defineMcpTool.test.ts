@@ -1,7 +1,7 @@
 import { describe, it, expectTypeOf } from "bun:test";
 import z from "zod";
 import { defineMcpTool } from "../defineMcpTool";
-import { buildMcpToolResult } from "../result-builder";
+import { buildMcpToolResult } from "../result-builders";
 import type { McpToolResult } from "../types";
 
 const emptyResult = buildMcpToolResult([]);

@@ -1,7 +1,7 @@
 import { describe, it, expectTypeOf } from "bun:test";
 import z from "zod";
 import { defineMcpPrompt } from "../defineMcpPrompt";
-import { buildMcpPromptResult } from "../result-builder";
+import { buildMcpPromptResult } from "../result-builders";
 import type { McpPromptResult } from "../types";
 
 const emptyResult = buildMcpPromptResult("");
