@@ -190,7 +190,7 @@ export type McpResultContent =
 
 export type McpPromptMessage = {
   role: "user" | "assistant";
-  content: McpResultContent[];
+  content: McpResultContent;
 };
 
 /**
@@ -205,7 +205,7 @@ export type McpToolResult = {
  * @see https://modelcontextprotocol.io/specification/2025-03-26/server/resources#reading-resources
  */
 export type McpResourceResult = {
-  content: McpResourceData[];
+  contents: McpResourceData[];
 };
 
 /**

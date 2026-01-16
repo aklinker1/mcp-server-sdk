@@ -59,7 +59,7 @@ export function buildMcpResourceContent(
 
 export function buildMcpPromptMessage(
   role: "user" | "assistant",
-  ...content: McpResultContent[]
+  content: McpResultContent,
 ): McpPromptMessage {
   return {
     role,
@@ -68,10 +68,10 @@ export function buildMcpPromptMessage(
 }
 
 export function buildMcpResourceResult(
-  ...content: McpResourceData[]
+  ...contents: McpResourceData[]
 ): McpResourceResult {
   return {
-    content,
+    contents,
   };
 }
 

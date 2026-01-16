@@ -1,9 +1,10 @@
 import { describe, it, expectTypeOf } from "bun:test";
 import z from "zod";
-import {
-  defineMcpResourceTemplate,
-  type McpResourceTemplateResponse,
-} from "../defineMcpResourceTemplate";
+import { defineMcpResourceTemplate } from "../defineMcpResourceTemplate";
+import type { McpResourceResult } from "../types";
+import { buildMcpResourceResult } from "../result-builder";
+
+const emptyResult = buildMcpResourceResult();
 
 describe("defineMcpResourceTemplate", () => {
   describe("when an input schema is provided", () => {
@@ -13,7 +14,7 @@ describe("defineMcpResourceTemplate", () => {
         flag: z.stringbool(),
       }),
       mimeType: "text/plain",
-      handler: ({ uri: _uri, uriParams: _uriParams }) => {},
+      handler: ({ uri: _uri, uriParams: _uriParams }) => emptyResult,
     });
 
     it("should infer the input type from the schema's output (validated) type", () => {
@@ -21,7 +22,7 @@ describe("defineMcpResourceTemplate", () => {
         handler: (ctx: {
           uri: string;
           uriParams: { flag: boolean };
-        }) => McpResourceTemplateResponse;
+        }) => McpResourceResult;
       }>();
     });
   });
