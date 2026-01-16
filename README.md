@@ -2,7 +2,7 @@
 
 # `@aklinker1/mcp-server-sdk`
 
-[![JSR](https://jsr.io/badges/@aklinker1/mcp-server-sdk)](https://jsr.io/@aklinker1/mcp-server-sdk) [![NPM Version](https://img.shields.io/npm/v/%40aklinker1%2Fmcp-server-sdk?logo=npm&labelColor=red&color=white)](https://www.npmjs.com/package/@aklinker1/mcp-server-sdk) [![Docs](https://img.shields.io/badge/API%20Reference-blue?logo=readme&logoColor=white)](https://jsr.io/@aklinker1/mcp-server-sdk/doc)
+[![JSR](https://jsr.io/badges/@aklinker1/mcp-server-sdk)](https://jsr.io/@aklinker1/mcp-server-sdk) [![NPM Version](https://img.shields.io/npm/v/%40aklinker1%2Fmcp-server-sdk?logo=npm&labelColor=red&color=white)](https://www.npmjs.com/package/@aklinker1/mcp-server-sdk) [![Docs](https://img.shields.io/badge/API%20Reference-blue?logo=readme&logoColor=white)](https://jsr.io/@aklinker1/mcp-server-sdk/doc) [![Install Size](https://pkg-size.dev/badge/install/61804)](https://pkg-size.dev/@aklinker1%2Fmcp-server-sdk)
 
 </div>
 
@@ -10,7 +10,7 @@ Alternative to the official [`@modelcontextprotocol/sdk`](https://github.com/mod
 
 - [Standard Schema compatible validation library](https://standardschema.dev/schema#what-schema-libraries-implement-the-spec) support
 - [WHATWG `fetch` standard](https://fetch.spec.whatwg.org/) support (Bun & Deno servers)
-- Minimal dependencies
+- [Minimal dependencies](https://pkg-size.dev/@aklinker1%2Fmcp-server-sdk)
 
 **Supported Protocol Versions**
 
