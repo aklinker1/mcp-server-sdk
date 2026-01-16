@@ -1,6 +1,6 @@
 {
   "name": "@aklinker1/mcp-server-sdk",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Server-side APIs for creating MCP server-side fetch functions",
   "packageManager": "bun@1.3.5",
   "type": "module",

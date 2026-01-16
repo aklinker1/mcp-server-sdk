@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v0.1.5
+
+[compare changes](https://github.com/aklinker1/mcp-server-sdk/compare/v0.1.4...v0.1.5)
+
+### 🩹 Fixes
+
+- Support promises in return type ([734c939](https://github.com/aklinker1/mcp-server-sdk/commit/734c939))
+
+### 📖 Documentation
+
+- Add warning about v2 ([6cfb85a](https://github.com/aklinker1/mcp-server-sdk/commit/6cfb85a))
+- Fix quickstart ([0245ef2](https://github.com/aklinker1/mcp-server-sdk/commit/0245ef2))
+
+### ❤️ Contributors
+
+- Aaron ([@aklinker1](https://github.com/aklinker1))
+
 ## v0.1.4
 
 [compare changes](https://github.com/aklinker1/mcp-server-sdk/compare/v0.1.3...v0.1.4)
