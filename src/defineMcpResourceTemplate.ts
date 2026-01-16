@@ -31,7 +31,7 @@ export type McpResourceTemplate<
   description?: string;
   uriTemplate: TUriTemplate;
   uriSchema: TUriSchema;
-  mimeType: string;
+  mimeType?: string;
   handler: (
     ctx: McpResourceTemplateCtx<TUriSchema>,
   ) => McpResourceTemplateResponse;

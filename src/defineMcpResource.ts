@@ -21,7 +21,7 @@ export type McpResource = {
   title?: string;
   description?: string;
   uri: string;
-  mimeType: string;
+  mimeType?: string;
   handler: (ctx: McpResourceCtx) => McpResourceResponse;
 };
 
