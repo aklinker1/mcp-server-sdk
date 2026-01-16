@@ -21,7 +21,9 @@ export type McpPrompt<TArgsSchema extends StandardSchemaV1 | undefined> = {
   title?: string;
   description?: string;
   argsSchema?: TArgsSchema;
-  handler: (ctx: McpPromptCtx<TArgsSchema>) => McpPromptResult;
+  handler: (
+    ctx: McpPromptCtx<TArgsSchema>,
+  ) => Promise<McpPromptResult> | McpPromptResult;
 };
 
 /**

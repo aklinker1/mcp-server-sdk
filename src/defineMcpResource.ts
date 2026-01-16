@@ -19,7 +19,9 @@ export type McpResource = {
   description?: string;
   uri: string;
   mimeType?: string;
-  handler: (ctx: McpResourceCtx) => McpResourceResult;
+  handler: (
+    ctx: McpResourceCtx,
+  ) => Promise<McpResourceResult> | McpResourceResult;
 };
 
 /**

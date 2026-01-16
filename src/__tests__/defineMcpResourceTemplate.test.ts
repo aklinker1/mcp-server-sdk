@@ -22,7 +22,7 @@ describe("defineMcpResourceTemplate", () => {
         handler: (ctx: {
           uri: string;
           uriParams: { flag: boolean };
-        }) => McpResourceResult;
+        }) => Promise<McpResourceResult> | McpResourceResult;
       }>();
     });
   });

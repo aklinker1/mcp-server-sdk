@@ -21,7 +21,9 @@ export type McpTool<TInputSchema extends StandardSchemaV1 | undefined> = {
   title?: string;
   description?: string;
   inputSchema?: TInputSchema;
-  handler: (ctx: McpToolCtx<TInputSchema>) => McpToolResult;
+  handler: (
+    ctx: McpToolCtx<TInputSchema>,
+  ) => Promise<McpToolResult> | McpToolResult;
 };
 
 /**

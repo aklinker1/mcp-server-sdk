@@ -14,7 +14,7 @@ describe("defineMcpPrompt", () => {
 
     it("should not include `input` in handler context", () => {
       expectTypeOf(prompt).toMatchObjectType<{
-        handler: (ctx: {}) => McpPromptResult;
+        handler: (ctx: {}) => Promise<McpPromptResult> | McpPromptResult;
       }>();
     });
   });
@@ -29,7 +29,9 @@ describe("defineMcpPrompt", () => {
 
     it("should infer the input type from the schema's output (validated) type", () => {
       expectTypeOf(prompt).toMatchObjectType<{
-        handler: (ctx: { args: { flag: boolean } }) => McpPromptResult;
+        handler: (ctx: {
+          args: { flag: boolean };
+        }) => Promise<McpPromptResult> | McpPromptResult;
       }>();
     });
   });

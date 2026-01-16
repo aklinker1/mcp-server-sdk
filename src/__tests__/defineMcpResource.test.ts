@@ -15,7 +15,9 @@ describe("defineMcpResource", () => {
 
     it("should not include `input` in handler context", () => {
       expectTypeOf(resource).toMatchObjectType<{
-        handler: (ctx: { uri: string }) => McpResourceResult;
+        handler: (ctx: {
+          uri: string;
+        }) => Promise<McpResourceResult> | McpResourceResult;
       }>();
     });
   });

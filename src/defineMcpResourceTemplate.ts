@@ -28,7 +28,9 @@ export type McpResourceTemplate<
   uriTemplate: TUriTemplate;
   uriSchema: TUriSchema;
   mimeType?: string;
-  handler: (ctx: McpResourceTemplateCtx<TUriSchema>) => McpResourceResult;
+  handler: (
+    ctx: McpResourceTemplateCtx<TUriSchema>,
+  ) => Promise<McpResourceResult> | McpResourceResult;
 };
 
 /**

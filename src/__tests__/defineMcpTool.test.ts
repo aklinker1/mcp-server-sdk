@@ -14,7 +14,7 @@ describe("defineMcpTool", () => {
 
     it("should not include `input` in handler context", () => {
       expectTypeOf(tool).toMatchObjectType<{
-        handler: (ctx: {}) => McpToolResult;
+        handler: (ctx: {}) => Promise<McpToolResult> | McpToolResult;
       }>();
     });
   });
@@ -29,7 +29,9 @@ describe("defineMcpTool", () => {
 
     it("should infer the input type from the schema's output (validated) type", () => {
       expectTypeOf(tool).toMatchObjectType<{
-        handler: (ctx: { input: { flag: boolean } }) => McpToolResult;
+        handler: (ctx: {
+          input: { flag: boolean };
+        }) => Promise<McpToolResult> | McpToolResult;
       }>();
     });
   });
