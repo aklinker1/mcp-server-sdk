@@ -12,13 +12,28 @@ import type {
 } from "./types";
 
 export function buildMcpToolResult(
-  content: McpResultContent[],
-  isError = false,
+  ...content: McpResultContent[]
 ): McpToolResult {
   return {
     content,
-    isError,
+    isError: false,
   };
+}
+
+export function buildMcpToolTextResult(text: string): McpToolResult {
+  return buildMcpToolResult(buildMcpTextContent(text));
+}
+
+export async function buildMcpToolImageResult(
+  data: Blob,
+): Promise<McpToolResult> {
+  return buildMcpToolResult(await buildMcpImageContent(data));
+}
+
+export async function buildMcpToolAudioResult(
+  data: Blob,
+): Promise<McpToolResult> {
+  return buildMcpToolResult(await buildMcpAudioContent(data));
 }
 
 export function buildMcpTextContent(text: string): McpTextContent {
