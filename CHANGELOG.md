@@ -1,6 +1,34 @@
 # Changelog
 
 
+## v0.1.6
+
+[compare changes](https://github.com/aklinker1/mcp-server-sdk/compare/v0.1.5...v0.1.6)
+
+### 🚀 Enhancements
+
+- More result builders ([6921711](https://github.com/aklinker1/mcp-server-sdk/commit/6921711))
+
+### 🩹 Fixes
+
+- Properly handle errors in tool calls ([0b8b43e](https://github.com/aklinker1/mcp-server-sdk/commit/0b8b43e))
+- Add missing image result type to tool response contents ([ddfaedc](https://github.com/aklinker1/mcp-server-sdk/commit/ddfaedc))
+- Include instructions in `initialize` response ([e422927](https://github.com/aklinker1/mcp-server-sdk/commit/e422927))
+
+### 📖 Documentation
+
+- Update description ([5521331](https://github.com/aklinker1/mcp-server-sdk/commit/5521331))
+- Add stats on install size ([5e54644](https://github.com/aklinker1/mcp-server-sdk/commit/5e54644))
+- Update mimial dependencies links ([5fd32c2](https://github.com/aklinker1/mcp-server-sdk/commit/5fd32c2))
+
+### 🏡 Chore
+
+- Fix type error ([ba4de72](https://github.com/aklinker1/mcp-server-sdk/commit/ba4de72))
+
+### ❤️ Contributors
+
+- Aaron ([@aklinker1](https://github.com/aklinker1))
+
 ## v0.1.5
 
 [compare changes](https://github.com/aklinker1/mcp-server-sdk/compare/v0.1.4...v0.1.5)
