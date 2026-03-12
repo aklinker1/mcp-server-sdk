@@ -4,7 +4,7 @@ import { defineMcpTool } from "../defineMcpTool";
 import { buildMcpToolResult } from "../result-builders";
 import type { McpToolResult } from "../types";
 
-const emptyResult = buildMcpToolResult([]);
+const emptyResult = buildMcpToolResult();
 
 describe("defineMcpTool", () => {
   describe("when no input schema is provided", () => {
