@@ -49,6 +49,7 @@ export async function handleJsonRpc(
               name: options.serverInfo?.name ?? "mcp_server",
               version: options.serverInfo?.version ?? "1.0.0",
             },
+            instructions: options.instructions,
           },
         };
       }
